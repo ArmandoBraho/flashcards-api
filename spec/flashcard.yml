@@ -1,0 +1,35 @@
+openapi: 3.1.0
+components:
+  schemas:
+    FlashCard:
+      required:
+        - flashcardID
+      type: object
+      properties:
+        flashcardID:
+          type: string
+          description: Unique identifier for the flashcard
+        frontTitle:
+          type: string
+          description: Title of the front side of the flashcard
+        retroTitle:
+          type: string
+          description: Title of the retro side of the flashcard
+        frontExamples:
+          type: string
+          description: Examples related to the front side of the flashcard
+        retroExamples:
+          type: string
+          description: Examples related to the retro side of the flashcard
+        knowledgeLevel:
+          type: string
+          description: Level of knowledge associated with the flashcard. The higher the level the higher the repetition interval.
+          enum:
+            - BEGINNER
+            - BEGINNER_PLUS
+            - INTERMEDIATE
+            - INTERMEDIATE_PLUS
+            - ADVANCED
+            - ADVANCED_PLUS
+            - EXPERT
+            - EXPERT_PLUS

@@ -1,0 +1,121 @@
+openapi: 3.1.0
+info:
+  title: FlashCard API
+  version: "0.1.0"
+  description: API for managing flashcards
+  contact:
+    email: armando.braho02@gmail.com
+
+servers:
+  - url: http://localhost:8080/
+paths:
+  /flashcards:
+    get:
+      summary: Get all flashcards
+      responses:
+        200:
+          description: A list of flashcards is returned
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: 'flashcard.yml#/components/schemas/FlashCard'
+        # do I need an 500 in this case ????
+    post:
+      summary: Create a new flashcard
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: 'flashcard.yml#/components/schemas/FlashCard'
+      responses:
+        201:
+          description: Flashcard created successfully
+          content:
+            application/json:
+              schema:
+                $ref: 'flashcard.yml#/components/schemas/FlashCard'
+        400:
+          description: Bad request
+        500:
+          description: Internal Server error
+
+  /flashcards/{flashcardID}:
+    get:
+      summary: Get a flashcard by ID(flashcardID)
+      parameters:
+        # divide in separate file? for parameters ( look parameters.yml eldr service
+        - name: flashcardID
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Found flashcard
+          content:
+            application/json:
+              schema:
+                $ref: 'flashcard.yml#/components/schemas/FlashCard'
+        404:
+          description: Flashcard not found
+        500:
+          description: Internal Server error
+
+    patch:
+      summary: Update a flashcard by ID(flashcardID)
+      parameters:
+        - name: flashcardID
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          text/plain:
+            schema:
+              type: string
+      responses:
+        200:
+          description: Flashcard updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: 'flashcard.yml#/components/schemas/FlashCard'
+        400:
+          description: Bad request
+        500:
+          description: Internal Server error
+
+    delete:
+      summary: Delete a flashcard by ID
+      parameters:
+        # divide in separate file? for parameters ( look parameters.yml eldr service
+        - name: flashcardID
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Flashcard deleted successfully
+        400:
+          description: Bad request
+
+  /flashcards/expiredFlashcards:
+    get:
+      summary: Get all expired flashcards
+      responses:
+        200:
+          description: A list of expired flashcards
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: 'flashcard.yml#/components/schemas/FlashCard'
+                  # do I need to return the expirationDate?? The user itself atm does not see it and the FE asks the BE which cards should be repeated today. Maybe later
+                  #for stats and customized settings of the user we may need to send such info to FE
