@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.0.1
 info:
   title: FlashCard API
   version: "0.1.0"
@@ -117,5 +117,7 @@ paths:
                 type: array
                 items:
                   $ref: 'flashcard.yml#/components/schemas/FlashCard'
+        500:
+          description: Internal Server error
                   # do I need to return the expirationDate?? The user itself atm does not see it and the FE asks the BE which cards should be repeated today. Maybe later
                   #for stats and customized settings of the user we may need to send such info to FE
