@@ -55,7 +55,6 @@ paths:
       tags:
         - flashcards
       parameters:
-        # divide in separate file? for parameters ( look parameters.yml eldr service
         - name: flashcardID
           in: path
           required: true
@@ -72,10 +71,9 @@ paths:
           description: Flashcard not found
         500:
           description: Internal Server error
-
-    patch:
-      summary: Update a flashcard by ID(flashcardID)
-      operationId: patchFlashcard
+    put:
+      summary: update the knowledgeLevel of a flashcard with a certain flashcardID
+      operationId: updateLevelFlashcard
       tags:
         - flashcards
       parameters:
@@ -85,11 +83,10 @@ paths:
           schema:
             type: string
       requestBody:
-        required: true
         content:
-          text/plain:
+          application/json:
             schema:
-              type: string
+              $ref: 'repetition-feedback.yml#/components/schemas/RepetitionFeedback'
       responses:
         200:
           description: Flashcard updated successfully
@@ -108,7 +105,6 @@ paths:
       tags:
         - flashcards
       parameters:
-        # divide in separate file? for parameters ( look parameters.yml eldr service
         - name: flashcardID
           in: path
           required: true

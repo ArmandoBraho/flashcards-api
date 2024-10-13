@@ -1,0 +1,11 @@
+components:
+  schemas:
+    RepetitionFeedback:
+      properties:
+        repetitionFeedback:
+          type: string
+          enum:
+            - BAD
+            - OK
+            - GOOD
+          description: Feedback given by the user after reviewing the flashcard, Can be BAD, OK or GOOD
